@@ -41,6 +41,9 @@ const userSchema = new Schema({
     },
     admincode : {
         type : String
+    },
+    profile : {
+        type : String
     }
 })
 

@@ -76,10 +76,31 @@ usersController.admin = (req,res) => {
 
 }
 
-usersController.account = (req, res) => {
+usersController.account = (req, res) => {   
     User.findById(req.userId)
         .then((user) => {
-            res.json(user)
+            const userDetails = Object.assign({},user._doc)
+            delete userDetails.password 
+            delete userDetails.role
+            res.json(userDetails)
+        })
+        .catch((err) => {
+            res.json(err)
+        })
+}
+usersController.update = (req, res) => {
+    const id = req.userId
+    const body = req.body
+        User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
+        .then((user) => {
+            if (user) {
+                const userDetails = Object.assign({},user._doc)
+                delete userDetails.password 
+                delete userDetails.role
+                res.json(userDetails)
+            } else {
+                res.json({})
+            }
         })
         .catch((err) => {
             res.json(err)

@@ -1,7 +1,5 @@
 const Cartitem = require('../models/Cartitem')
 const Product = require('../models/product')
-const { json } = require('express')
-const { update } = require('./productsController')
 const  cartItemsController = {}
 
 cartItemsController.list = (req,res) => {
@@ -15,8 +13,9 @@ cartItemsController.list = (req,res) => {
     })
 }
 cartItemsController.addcart = (req, res) => {
-    const user = req.body.user
-    const products = req.body.product
+    const user = req.userId
+    let products = [] 
+    products.push({"product" : req.params.id})
    // Cartitem.findOneAndUpdate({user : user},{$push : {product : product}})
     const cartitem = new Cartitem({user,products})
     cartitem.save()
@@ -48,7 +47,7 @@ cartItemsController.add = (req,res) =>{
         .then((product)=>{
             obj.price = product.price
             obj.subtotal = obj.quantity * product.price
-
+            obj.image = product.image[0]
             Cartitem.findByIdAndUpdate({_id : req.params.id},{ $push : {products: obj}} , {safe: true, upsert: true})
             .then((data)=>{
                 res.json(data)

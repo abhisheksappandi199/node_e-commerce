@@ -20,6 +20,9 @@ const orderItemSchema = new Schema({
     },
     subtotal: {
         type: Number
+    },
+    image : {
+        type : String
     }  
 })
 orderItemSchema.pre('save',function(next){
@@ -27,6 +30,7 @@ orderItemSchema.pre('save',function(next){
     let total =0
     Product.findById(orderitem.product)
     .then((item)=>{
+        orderitem.image = item.image[0]
         orderitem.price = item.price
         orderitem.subtotal = orderitem.quantity * item.price
         next()

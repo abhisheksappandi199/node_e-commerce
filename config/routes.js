@@ -17,13 +17,14 @@ router.put('/api/products/:id',admin_authenticateUser , productsController.updat
 router.delete('/api/products/:id', admin_authenticateUser ,productsController.destroy)
 
 router.get('/api/cartitems/:id',cartItemsController.list)
-router.post('/api/cartitems/addcart',cartItemsController.addcart)
+router.get('/api/cartitems/addcart/:id',authenticateUser ,cartItemsController.addcart) // add product for first time
 router.delete('/api/cartitems/removecart/:id',cartItemsController.removecart)
 router.post('/api/cartitems/add/:id',cartItemsController.add)
 router.delete('/api/cartitems/remove/:cartid/:productid',cartItemsController.remove)
 router.put('/api/cartitems/quantity/inc/:cartid/:productid',cartItemsController.increment)
 router.put('/api/cartitems/quantity/dec/:cartid/:productid',cartItemsController.increment)
 
-router.get('/api/account')
+router.get('/api/account',authenticateUser,usersController.account)
+router.put('/api/account/edit', authenticateUser, usersController.update)
 
 module.exports = router
