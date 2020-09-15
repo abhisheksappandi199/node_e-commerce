@@ -1,3 +1,4 @@
+const { json } = require('body-parser')
 const Cartitem = require('../models/Cartitem')
 const Product = require('../models/product')
 const  cartItemsController = {}
@@ -117,5 +118,51 @@ cartItemsController.decrement = (req,res) => {
         res.json(err)
     })
 }
-
+cartItemsController.update = (req,res) =>{
+    const cartid = req.params.cartid
+    const productid = req.params.productid
+    const type = req.query.type
+    
+ //   CounterUpdate(_id, type)
+ Cartitem.updateByType(cartid,productid, type)
+     .then((counter) => {
+         const check = counter.products.find(e => e.quantity < 1)
+         if(counter.products.length == 1 && check){
+             Cartitem.findByIdAndDelete(counter._id)
+             .then((cart)=>{
+                 res.json({})
+             })
+             .catch((err)=>{
+                 res.json(err)
+             })
+         }
+         else if(check){
+            console.log(check);
+            Cartitem.findOneAndUpdate({_id : cartid },{ $pull : { products : { _id : check._id } }}, { new : true})
+            .then((filtered)=>{
+                //console.log(filtered);
+                res.json(filtered)
+            })
+            .catch(err =>{
+                res.json(err)
+            })
+         } else {
+            res.json(counter)
+         }
+     })
+     .catch((err) => {
+        res.json(err)
+     })
+}
 module.exports = cartItemsController
+
+
+// if(filtered.products.length == 0){
+//     Cartitem.findByIdAndDelete(filtered._id)
+//     .then((item)=> {
+//         res.json(item)
+//     })
+//     .catch((err)=>{
+//         res.json(err)
+//     })
+// } else {
