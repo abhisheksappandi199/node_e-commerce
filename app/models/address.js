@@ -16,10 +16,6 @@ const addressSchema = new Schema({
     },
     alternatemobile : {
         type : String ,
-        required : [true , 'mobile no. is required'],
-        unique : true,
-        minlength : [10 ,'invalid mobile number'] ,
-        maxlength : [10 ,'invalid mobile number']
     } ,
     street : {
         type : String,
@@ -32,12 +28,12 @@ const addressSchema = new Schema({
         type : String,
         required : true
     },
-    state : {
+    states : {
         type : String,
         required : true
     },
     pincode : {
-        type : Number,
+        type : String,
         required : true
     },
     addresstype : {
