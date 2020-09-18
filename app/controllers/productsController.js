@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const Category = require('../models/category')
 const productsController = {}
 
 productsController.list = (req, res) => {
@@ -68,6 +69,18 @@ productsController.destroy = (req, res) => {
         .catch((err) => {
             res.json(err)
         })
+}
+
+productsController.listspecific = (req,res) => {
+    const id = req.params.id
+    Category.findByIdAndUpdate(id)
+    .then((data) => {
+        Product.find({ category : data._id})
+            .then((filtered)=>{
+                console.log(filtered);
+                res.json(filtered)
+            })
+    })
 }
 
 module.exports = productsController

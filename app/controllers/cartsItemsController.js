@@ -1,4 +1,3 @@
-const { json } = require('body-parser')
 const Cartitem = require('../models/Cartitem')
 const Product = require('../models/product')
 const  cartItemsController = {}
@@ -28,6 +27,7 @@ cartItemsController.addcart = (req, res) => {
         })
 }
 
+
 cartItemsController.removecart = (req,res) =>{
     const id = req.params.id
     Cartitem.findByIdAndDelete(id)
@@ -41,6 +41,7 @@ cartItemsController.removecart = (req,res) =>{
 
 cartItemsController.add = (req,res) =>{
     let obj = {}
+    console.log(req.userId);
     obj.product = req.body.product
     req.body.quantity && ( obj.quantity = req.body.quantity)
     req.body.quantity && (

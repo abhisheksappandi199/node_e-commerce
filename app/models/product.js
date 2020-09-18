@@ -16,10 +16,10 @@ const productSchema = new Schema({
         type : String,
         required : true
     },
-    // category : {
-    //     type : Schema.Types.ObjectId ,
-    //     ref : 'Category'
-    // },
+    category : {
+        type : Schema.Types.ObjectId ,
+        ref : 'Category'
+    },
     stock : {
         type : String,
         required : true
@@ -33,6 +33,9 @@ const productSchema = new Schema({
     color : {
         type : String,
         required : true
+    },
+    size : {
+        type : String,
     }
 })
 
