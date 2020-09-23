@@ -5,13 +5,8 @@ const Schema = mongoose.Schema
 const orderItemSchema = new Schema({
     product : {
         type : Schema.Types.ObjectId,
-        ref : 'Product',
-        unique : true
+        ref : 'Product'
     },
-    // order : {
-    //     type : Schema.Types.ObjectId,
-    //     ref : 'Order'
-    // },
     quantity : {
         type : Number,
         default : 1
@@ -23,17 +18,7 @@ const orderItemSchema = new Schema({
         type: Number
     }
 })
-orderItemSchema.pre('save',function(next){
-    let orderitem = this
-    let total =0
-    Product.findById(orderitem.product)
-    .then((item)=>{
-        orderitem.price = item.price
-        orderitem.subtotal = orderitem.quantity * item.price
-        next()
-    })
 
-})
 
 const OrderItem = mongoose.model('OrderItem',orderItemSchema)
 

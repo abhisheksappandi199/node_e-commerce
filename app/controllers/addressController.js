@@ -2,7 +2,7 @@ const Address = require('../models/address')
 const addressController = {}
 
 addressController.list = (req, res) => {
-    Address.find()
+    Address.find({user : req.userId})
         .then((addresss) => {
             res.json(addresss)
         })
