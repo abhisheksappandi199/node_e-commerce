@@ -39,8 +39,9 @@ router.put('/api/cartitems/quantity/:cartid/:productid',cartItemsController.upda
 router.get('/api/account',authenticateUser,usersController.account)
 router.put('/api/account/edit', authenticateUser, usersController.update)
 
-router.get('/api/address',addresssController.list)
-router.get('/api/address/:id',addresssController.show)
+//.post('/api/address/add',authenticateUser ,addresssController.add)
+router.get('/api/address',authenticateUser ,addresssController.list)
+router.get('/api/address/:id',authenticateUser ,addresssController.show)
 router.post('/api/address' ,authenticateUser , addresssController.create)
 router.put('/api/address/:id',authenticateUser , addresssController.update)
 router.delete('/api/address/:id',authenticateUser , addresssController.destroy)

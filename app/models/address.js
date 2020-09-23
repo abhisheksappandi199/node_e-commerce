@@ -3,6 +3,10 @@ const { schema } = require('./user')
 
 const Schema = mongoose.Schema
 const addressSchema = new Schema({
+    user :{
+        type : Schema.Types.ObjectId ,
+        ref : 'User'
+     },
     name :{
         type : String,
         required :[true , 'username is required']
@@ -38,7 +42,7 @@ const addressSchema = new Schema({
     },
     addresstype : {
         type : String,
-        requiredc: true
+        required: true
     }
 })
 

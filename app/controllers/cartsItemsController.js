@@ -3,8 +3,8 @@ const Product = require('../models/product')
 const  cartItemsController = {}
 
 cartItemsController.list = (req,res) => {
-    const id = req.params.id
-    console.log(id);
+    // const id = req.params.id
+    // console.log(id);
     console.log(req.userId);
         Cartitem.findOne({user : req.userId})
         .then((cart)=>{
@@ -37,7 +37,9 @@ cartItemsController.removecart = (req,res) =>{
     const id = req.params.id
     Cartitem.findByIdAndDelete(id)
     .then((item)=> {
-        res.json(item)
+        if(item){
+            res.json(item)
+        }
     })
     .catch((err)=>{
         res.json(err)
