@@ -80,6 +80,7 @@ addressController.create = (req, res) => {
         Address.find({user : req.userId})
         .then((data)=>{
             if(data){
+                console.log("this is data in if statement ",data);
                 if(data.length == 0){
                     const address = new Address({
                         user , 
@@ -103,14 +104,16 @@ addressController.create = (req, res) => {
                         })
                 }
                 else {
-                    res.json("error")
+                    res.json("unable to save the address")
                 }
             }
             else {
-                res.json("error")
+                res.json("user not found...!")
             }
         })
-
+        .catch((err)=>{
+            res.json(err)
+        })
 }
 
 // admin - rights

@@ -47,5 +47,10 @@ router.put('/api/address/:id',authenticateUser , addresssController.update)
 router.delete('/api/address/:id',authenticateUser , addresssController.destroy)
 
 router.get('/api/bill',authenticateUser ,billController.addbill)
+router.get('/api/order' , billController.order)
+router.post('/api/capture/:id' , billController.payment)
+
+router.post('/verification' , billController.verfication)
+router.post('/razorpay' , billController.razorpay)
 
 module.exports = router

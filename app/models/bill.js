@@ -12,6 +12,10 @@ const billSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }, 
+    address : {
+        type : Schema.Types.ObjectId,
+        ref: 'Address'
+    },
     total: {
         type: Number
     },
