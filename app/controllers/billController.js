@@ -67,68 +67,6 @@ billController.removebill = (req, res) => {
     })
 }
 
-billController.order = (req,res) => {
-    try {
-        const options = {
-          amount: 10 * 100, // amount == Rs 10
-          currency: "INR",
-          receipt: "receipt#1",
-          payment_capture: 1,
-     // 1 for automatic capture // 0 for manual capture
-        };
-      instance.orders.create(options, async function (err, order) {
-        if (err) {
-          return res.status(500).json({
-            message: "Something Went Wrong",
-          });
-        }
-      return res.status(200).json(order);
-     });
-    } catch (err) {
-      return res.status(500).json({
-        message: "Something Went Wrong",
-      });
-     }
-}
-
-billController.payment = (req,res) => {
-  console.log("in payment");
-    try {
-        return request(
-          {
-            method: "POST",
-            url: `https://rzp_test_6FWcmU32U1iLtf:hMykYDzfmlJKMlJeJGWqJQYH@api.razorpay.com/v1/payments/${req.params.id}/capture`,
-            form: {
-               amount: 10 * 100, // amount == Rs 10 // Same As Order amount
-               currency: "INR",
-             },
-             auth : {
-              'Username' : 'rzp_test_6FWcmU32U1iLtf' ,
-              'Password' : 'hMykYDzfmlJKMlJeJGWqJQYH'
-             }
-           },
-       async function (err, response, body) {
-         if (err) {
-          console.log("in  inner error");
-          return res.status(500).json({
-             message: "Something Went Wrong",
-           }); 
-         }
-          console.log("Status:", response.statusCode);
-          console.log("Headers:", JSON.stringify(response.headers));
-          console.log("Response:", body);
-          return res.status(200).json(body);
-        });
-      } catch (err) {
-        console.log("in  outer error");
-        return res.status(500).json({
-          message: "Something Went Wrong",
-       });
-      }
-}
-
-
-
 billController.verfication = (req,res) => {
         // do a validation
       const secret = '12345678'
@@ -154,8 +92,18 @@ billController.verfication = (req,res) => {
 }
 
 billController.razorpay = async (req ,res) => {
+      let total = 0
+      const bill =  await Bill.findById(req.params.id)
+      //console.log("this is bill part",bill);
+      // .then((bill)=>{
+      //   total = bill.total
+      //   console.log("this is bill part",bill);
+      // })
+      // .catch((err)=>{
+      //   console.log(err);
+      // })
       const payment_capture = 1
-      const amount = 499
+      const amount = bill.total
       const currency = 'INR'
 
       const options = {
@@ -183,3 +131,63 @@ billController.razorpay = async (req ,res) => {
 
 
 module.exports = billController
+
+// billController.order = (req,res) => {
+//   try {
+//       const options = {
+//         amount: 10 * 100, // amount == Rs 10
+//         currency: "INR",
+//         receipt: "receipt#1",
+//         payment_capture: 1,
+//    // 1 for automatic capture // 0 for manual capture
+//       };
+//     instance.orders.create(options, async function (err, order) {
+//       if (err) {
+//         return res.status(500).json({
+//           message: "Something Went Wrong",
+//         });
+//       }
+//     return res.status(200).json(order);
+//    });
+//   } catch (err) {
+//     return res.status(500).json({
+//       message: "Something Went Wrong",
+//     });
+//    }
+// }
+
+// billController.payment = (req,res) => {
+// console.log("in payment");
+//   try {
+//       return request(
+//         {
+//           method: "POST",
+//           url: `https://rzp_test_6FWcmU32U1iLtf:hMykYDzfmlJKMlJeJGWqJQYH@api.razorpay.com/v1/payments/${req.params.id}/capture`,
+//           form: {
+//              amount: 10 * 100, // amount == Rs 10 // Same As Order amount
+//              currency: "INR",
+//            },
+//            auth : {
+//             'Username' : 'rzp_test_6FWcmU32U1iLtf' ,
+//             'Password' : 'hMykYDzfmlJKMlJeJGWqJQYH'
+//            }
+//          },
+//      async function (err, response, body) {
+//        if (err) {
+//         console.log("in  inner error");
+//         return res.status(500).json({
+//            message: "Something Went Wrong",
+//          }); 
+//        }
+//         console.log("Status:", response.statusCode);
+//         console.log("Headers:", JSON.stringify(response.headers));
+//         console.log("Response:", body);
+//         return res.status(200).json(body);
+//       });
+//     } catch (err) {
+//       console.log("in  outer error");
+//       return res.status(500).json({
+//         message: "Something Went Wrong",
+//      });
+//     }
+// }
