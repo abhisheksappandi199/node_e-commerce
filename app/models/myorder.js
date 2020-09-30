@@ -7,7 +7,7 @@ const myorderSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'User'
     },
-    myorder : {
+    myorders : {
         type : Array
     }
 })

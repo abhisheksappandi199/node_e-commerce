@@ -19,6 +19,9 @@ const billSchema = new Schema({
     total: {
         type: Number
     },
+    ids: {
+        type : Object
+    },
     lineItems: [ cartitemSchema ]
 }, { timestamps: true })
 

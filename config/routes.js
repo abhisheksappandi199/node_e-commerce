@@ -54,6 +54,6 @@ router.get('/api/bill/:id',authenticateUser ,billController.show)
 router.post('/verification' , billController.verfication)
 router.post('/razorpay/:id' , billController.razorpay)
 
-router.get('/api/myorders/:id',authenticateUser , myorderController.create)
+router.post('/api/myorders/:id',authenticateUser , myorderController.create)
 
 module.exports = router

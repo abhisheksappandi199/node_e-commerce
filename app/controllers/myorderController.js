@@ -15,16 +15,19 @@ myorderController.list = (req, res) => {
 // admin-rights
 myorderController.create = (req, res) => {
     const id = req.params.id
+    const ids = req.body
     //let bill
+    console.log(id)
     Bill.findById(id)
     .then((bill) => {
+        bill.ids = ids
         const user = req.userId
         MyOrder.find({user : req.userId})
         .then((data)=>{
             if(data.length === 0){
-                let myorder = [] 
-                myorder.push(bill)
-                const cartitem = new MyOrder({user,myorder})
+                let myorders = [] 
+                myorders.push(bill)
+                const cartitem = new MyOrder({user,myorders})
                 cartitem.save()
                     .then((cart) => {
                         res.json(cart)
@@ -38,7 +41,7 @@ myorderController.create = (req, res) => {
                 .then((order)=>{
                     if(order){
                         //console.log(order);
-                        MyOrder.findByIdAndUpdate({_id : order._id},{ $push : {myorder: bill}} , {upsert: true ,new : true})
+                        MyOrder.findByIdAndUpdate({_id : order._id},{ $push : {myorders: bill} } , {upsert: true ,new : true})
                         .then((ordersave)=>{
                             res.json(ordersave)
                         })
