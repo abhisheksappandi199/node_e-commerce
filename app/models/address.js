@@ -1,11 +1,11 @@
 const mongoose  = require('mongoose')
-const { schema } = require('./user')
 
 const Schema = mongoose.Schema
 const addressSchema = new Schema({
     user :{
         type : Schema.Types.ObjectId ,
         ref : 'User'
+        //type : String
      },
     name :{
         type : String,
@@ -14,9 +14,9 @@ const addressSchema = new Schema({
     mobile : {
         type : String ,
         required : [true , 'mobile no. is required'],
-        unique : true,
-        minlength : [10 ,'invalid mobile number'] ,
-        maxlength : [10 ,'invalid mobile number']
+        //unique : true,
+        min : [10 ,'invalid mobile number'] ,
+        max : [10 ,'invalid mobile number']
     },
     alternatemobile : {
         type : String ,

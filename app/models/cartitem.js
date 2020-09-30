@@ -10,6 +10,9 @@ const cartitemSchema = new Schema({
                 type : Schema.Types.ObjectId,
                 ref : 'Product'
             },
+            productname : {
+                type : String
+            },
             quantity : {
                 type : Number,
                 default : 1
@@ -55,6 +58,7 @@ cartitemSchema.pre('save',function(next){
     .then((item)=>{
         // console.log("this is pre save and add price to product");
         // console.log(item);
+        cartitem.products[0].productname = item.name
         cartitem.products[0].price = item.price
         cartitem.products[0].subtotal = cartitem.quantity * item.price
         cartitem.products[0].image = item.image[0]

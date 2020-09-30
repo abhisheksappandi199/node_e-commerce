@@ -5,11 +5,42 @@ addressController.list = (req, res) => {
     console.log("logged",req.userId);
     Address.findOne({user : req.userId})
         .then((addresss) => {
+            console.log("this is the addres ",addresss);
             res.json(addresss)
         })
         .catch((err) => {
             res.json(err)
         })
+}
+addressController.show = (req, res) => {
+    const id = req.params.id
+    Address.findById(id)
+        .then((address) => {
+            if (address) {
+                res.json(address)
+            } else {
+                res.json({})
+            }
+        })
+        .catch((err) => {
+            res.json(err)
+        })
+}
+// admin-rights
+
+addressController.create = (req,res) => {
+    const body = req.body
+    body.user = req.userId
+    const address = new Address(body)
+    address.save()
+    .then((addres)=>{
+        console.log("address",address);
+        res.json(addres)
+    })
+    .catch((err)=>{
+        console.log("error",err);
+        res.json(err)
+    })
 }
 // addressController.add =  (req,res) =>{  // async
 //     const user = req.userId
@@ -57,64 +88,51 @@ addressController.list = (req, res) => {
 //         res.json(err)
 //     })     
 // }
-addressController.show = (req, res) => {
-    const id = req.params.id
-    Address.findById(id)
-        .then((address) => {
-            if (address) {
-                res.json(address)
-            } else {
-                res.json({})
-            }
-        })
-        .catch((err) => {
-            res.json(err)
-        })
-}
-// admin-rights
-addressController.create = (req, res) => {
-        const user = req.userId
-        const body = req.body 
-        body.user = user
-        console.log(body);
-        Address.find({user : req.userId})
-        .then((data)=>{
-            if(data){
-                console.log("this is data in if statement ",data);
-                if(data.length == 0){
-                    const address = new Address({
-                        user , 
-                        name:body.name,
-                        mobile : body.mobile,
-                        alternatemobile:body.alternatemobile,
-                        street:body.street,
-                        lankmark:body.landmark,
-                        city : body.city,
-                        states:body.states,
-                        pincode :body.pincode,
-                        addresstype:body.addresstype                    
-                    })
-                    address.save()
-                        .then((address) => {
-                            console.log("this is saved address",address);
-                            res.json(address)
-                        })
-                        .catch((err) => {
-                            res.json(err)
-                        })
-                }
-                else {
-                    res.json("unable to save the address")
-                }
-            }
-            else {
-                res.json("user not found...!")
-            }
-        })
-        .catch((err)=>{
-            res.json(err)
-        })
-}
+
+
+// addressController.create = (req, res) => {
+//         const user = req.userId
+//         const body = req.body 
+//         body.user = user
+//         console.log(body);
+//         Address.find({user : req.userId})
+//         .then((data)=>{
+//             if(data){
+//                 console.log("this is data in if statement ",data);
+//                 if(data.length == 0){
+//                     const address = new Address({
+//                         user , 
+//                         name:body.name,
+//                         mobile : body.mobile,
+//                         alternatemobile:body.alternatemobile,
+//                         street:body.street,
+//                         lankmark:body.landmark,
+//                         city : body.city,
+//                         states:body.states,
+//                         pincode :body.pincode,
+//                         addresstype:body.addresstype                    
+//                     })
+//                     address.save()
+//                         .then((address) => {
+//                             console.log("this is saved address",address);
+//                             res.json(address)
+//                         })
+//                         .catch((err) => {
+//                             res.json(err)
+//                         })
+//                 }
+//                 else {
+//                     res.json("unable to save the address")
+//                 }
+//             }
+//             else {
+//                 res.json("user not found...!")
+//             }
+//         })
+//         .catch((err)=>{
+//             res.json(err)
+//         })
+// }
 
 // admin - rights
 addressController.update = (req, res) => {

@@ -80,6 +80,7 @@ cartItemsController.add =  (req,res) =>{  // async
                     console.log("this is product=========================",product);
                     if(product){
                         obj.price = product.price
+                        obj.productname = product.name
                         //obj.subtotal = parseInt(obj.quantity) * parseInt(product.price) // product.price //
                         //total += String(obj.quantity) * String(product.price) 
                         obj.image = product.image[0]

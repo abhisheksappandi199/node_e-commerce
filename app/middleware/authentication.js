@@ -8,7 +8,6 @@ const authenticateUser = (req, res, next) => {
         try {
             tokenData = jwt.verify(token, 'dct@123')
             req.userId = tokenData.id 
-            
             next()
         } catch(e) {
             res.status('401').json({ error: e.message })

@@ -6,10 +6,20 @@ var Razorpay=require("razorpay");
 const  billController = {}
 
 const razorpay = new Razorpay({
-    key_id: 'rzp_test_6FWcmU32U1iLtf',
-    key_secret: 'hMykYDzfmlJKMlJeJGWqJQYH',
+    key_id: process.env.KEY_ID ,
+    key_secret: process.env.KEY_SECRET
 });
 
+billController.show = (req,res) => {
+    const id = req.params.id
+    Bill.findById(id)
+    .then((bill) => {
+        res.json(bill)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
 
 billController.addbill = (req,res) => {
    // const body = req.body

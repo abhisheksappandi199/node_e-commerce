@@ -10,6 +10,7 @@ const cartItemsController = require('../app/controllers/cartsItemsController')
 const addresssController = require('../app/controllers/addressController')
 const categoryController = require('../app/controllers/categoryController')
 const billController = require('../app/controllers/billController')
+const myorderController = require('../app/controllers/myorderController')
 
 router.post('/api/category' , categoryController.create)
 router.get('/api/category' ,categoryController.list)
@@ -39,7 +40,7 @@ router.put('/api/cartitems/quantity/:cartid/:productid',cartItemsController.upda
 router.get('/api/account',authenticateUser,usersController.account)
 router.put('/api/account/edit', authenticateUser, usersController.update)
 
-//.post('/api/address/add',authenticateUser ,addresssController.add)
+//router.post('/api/address/add',authenticateUser ,addresssController.add)
 router.get('/api/address',authenticateUser ,addresssController.list)
 router.get('/api/address/:id',authenticateUser ,addresssController.show)
 router.post('/api/address' ,authenticateUser , addresssController.create)
@@ -47,10 +48,12 @@ router.put('/api/address/:id',authenticateUser , addresssController.update)
 router.delete('/api/address/:id',authenticateUser , addresssController.destroy)
 
 router.get('/api/bill',authenticateUser ,billController.addbill)
+router.get('/api/bill/:id',authenticateUser ,billController.show)
 // router.get('/api/order' , billController.order)
 // router.post('/api/capture/:id' , billController.payment)
-
 router.post('/verification' , billController.verfication)
 router.post('/razorpay/:id' , billController.razorpay)
+
+router.get('/api/myorders/:id',authenticateUser , myorderController.create)
 
 module.exports = router
