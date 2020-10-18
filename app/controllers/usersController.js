@@ -8,6 +8,30 @@ usersController.register = (req, res) => {
     const user = new User(body)
     user.save()
         .then((user) => {
+                    //////////////////////////////////// NODEMAILER /////////////////////////////////////////////////////////////////
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'abhishekbusiness199@gmail.com',
+                pass: 'placement'
+            }
+            });
+            
+            var mailOptions = {
+            from: 'abhishekbusiness199@gmail.com',
+            to: `${body.email}`,
+            subject: 'welcome',
+            text: `welcome to ilkal sarees`
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+            })
+        //////////////////////////////////// NODEMAILER ////////////////////////////////////////////////////////////////////////////////////////
             res.json(user)
         })
         .catch((err) => {
@@ -57,7 +81,7 @@ usersController.admin = (req,res) => {
                             id: user._id,
                             admincode : user.admincode
                         }
-                        console.log(tokenData);
+                        //console.log(tokenData);
                         const token = jwt.sign(tokenData, 'dct@123', { expiresIn: '2d'})
                         res.json({
                             token: token

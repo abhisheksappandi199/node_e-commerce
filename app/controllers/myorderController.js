@@ -85,9 +85,9 @@ myorderController.create = (req, res) => {
                            //.image('logo.jfif', 50, 45, { width: 50 })
                            .fillColor("#444444")
                            .fontSize(20)
-                           .text("Sappandi Brothers Inc.", 110, 57)
+                           .text("Ilkal Sarees Inc.", 110, 57)
                            .fontSize(10)
-                           .text("Sappandi Brothers Inc.", 200, 50, { align: "right" })
+                           .text("Ilkal Sarees Inc.", 200, 50, { align: "right" })
                            .text("salpeth ward no.2", 200, 65, { align: "right" })
                            .text("ilkal, Karnataka ,587125", 200, 80, { align: "right" })
                            .moveDown();
@@ -242,7 +242,7 @@ myorderController.create = (req, res) => {
           
           var mailOptions = {
           from: 'abhishekbusiness199@gmail.com',
-          to: 'abhisheksappandi199@gmail.com',
+          to: ` ${customerDetails.email}`,
           subject: 'e-Bill',
           text: `ths bill of your order is /-`,
           attachments: [
@@ -319,9 +319,9 @@ myorderController.create = (req, res) => {
                                  //.image('logo.jfif', 50, 45, { width: 50 })
                                  .fillColor("#444444")
                                  .fontSize(20)
-                                 .text("Sappandi Brothers Inc.", 110, 57)
+                                 .text("Ilkal Sarees Inc.", 110, 57)
                                  .fontSize(10)
-                                 .text("Sappandi Brothers Inc.", 200, 50, { align: "right" })
+                                 .text("Ilkal Sarees Inc.", 200, 50, { align: "right" })
                                  .text("salpeth ward no.2", 200, 65, { align: "right" })
                                  .text("ilkal, Karnataka ,587125", 200, 80, { align: "right" })
                                  .moveDown();
@@ -474,7 +474,7 @@ myorderController.create = (req, res) => {
                             
                             var mailOptions = {
                             from: 'abhishekbusiness199@gmail.com',
-                            to: 'abhisheksappandi199@gmail.com',
+                            to: ` ${customerDetails.email}`,
                             subject: 'e-Bill',
                             text: `ths bill of your order is /-`,
                             attachments: [

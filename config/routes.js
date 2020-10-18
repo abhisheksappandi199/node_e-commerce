@@ -17,11 +17,11 @@ router.get('/api/category' ,categoryController.list)
 
 router.post('/api/users/register', usersController.register)
 router.post('/api/users/login', usersController.login)
-router.post('/api/users/login/admin',authenticateUser , usersController.admin)
+router.post('/api/users/login/admin', usersController.admin)
 
 router.get('/api/products',productsController.list)
 router.get('/api/products/:id',productsController.show)
-router.post('/api/products' , productsController.create)
+router.post('/api/products' ,admin_authenticateUser , productsController.create)
 router.put('/api/products/:id',admin_authenticateUser , productsController.update)
 router.delete('/api/products/:id', admin_authenticateUser ,productsController.destroy)
 router.get('/api/products/category/:id',productsController.listspecific)
