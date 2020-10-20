@@ -6,8 +6,7 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     username : {
         type : String,
-        required : [true , 'username is required'],
-        minlength : [3 ,'minimum length is 3 character']
+        required : [true , 'username is required']
     },
     mobile : {
         type : String ,
