@@ -2,14 +2,17 @@ const User = require('../models/user')
 const usersController = {}
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
+const welcome =  '../../assets/welcome.png'
 
 usersController.register = (req, res) => {
     const body = req.body 
     const user = new User(body)
     user.save()
         .then((user) => {
+            console.log("email =========================================================================>",body.email);
                     //////////////////////////////////// NODEMAILER /////////////////////////////////////////////////////////////////
-        var transporter = nodemailer.createTransport({
+        let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: 'abhishekbusiness199@gmail.com',
@@ -21,7 +24,8 @@ usersController.register = (req, res) => {
             from: 'abhishekbusiness199@gmail.com',
             to: `${body.email}`,
             subject: 'welcome',
-            text: `welcome to ilkal sarees`
+            text: `welcome to ilkal sarees`,
+            html: `<p><b>Welocome to Ilkal Sarees</b></p><img src='https://firebasestorage.googleapis.com/v0/b/react-upload-bd7bd.appspot.com/o/email%2Fwelcome.jpg?alt=media&token=2f86eb10-8f7d-40e9-8665-f6c2990ca57c'/>`
             };
             
             transporter.sendMail(mailOptions, function(error, info){

@@ -188,7 +188,7 @@ myorderController.create = (req, res) => {
                          doc
                            .fontSize(12)
                            .text(
-                             "Payment is has to be done within 15 days. Thank you for your business.",
+                             "Thank you for your business.",
                              50,
                              700,
                              { align: "center", width: 500 }
@@ -244,7 +244,7 @@ myorderController.create = (req, res) => {
           from: 'abhishekbusiness199@gmail.com',
           to: ` ${customerDetails.email}`,
           subject: 'e-Bill',
-          text: `ths bill of your order is /-`,
+          text: `ths bill of your order `,
           attachments: [
             {
                 filename: `${req.params.id}.pdf`,    
@@ -422,7 +422,7 @@ myorderController.create = (req, res) => {
                                doc
                                  .fontSize(12)
                                  .text(
-                                   "Payment is has to be done within 15 days. Thank you for your business.",
+                                   "Thank you for your business.",
                                    50,
                                    700,
                                    { align: "center", width: 500 }
@@ -476,7 +476,7 @@ myorderController.create = (req, res) => {
                             from: 'abhishekbusiness199@gmail.com',
                             to: ` ${customerDetails.email}`,
                             subject: 'e-Bill',
-                            text: `ths bill of your order is /-`,
+                            text: `ths bill of your order`,
                             attachments: [
                               {
                                   filename: `${req.params.id}.pdf`,    
